@@ -1,8 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from .models import Post
-from django.shortcuts import render, get_object_or_404
 from .forms import PostForm
+from django.template.context import RequestContext
+
+def index(request):
+    return render_to_response("index.html", context_instance=RequestContext(request))
+
+
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
